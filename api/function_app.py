@@ -178,6 +178,7 @@ def get_vote(req: func.HttpRequest, inputDocument: func.DocumentList) -> func.Ht
             status_code=200
         )
     else:
+        logging.error()
         return func.HttpResponse(
             json.dumps({"error": f"No data found"}),
             mimetype="application/json",
