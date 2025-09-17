@@ -38,6 +38,7 @@ def post_user(req: func.HttpRequest, outputDocument: func.Out[func.Document]) ->
         }
 
         outputDocument.set(func.Document.from_dict(document))
+        logging.info(f"New user created: pseudo={pseudo}, email={email}")
 
         return func.HttpResponse(
             json.dumps({"status": "User created", "document": document}),
@@ -78,6 +79,7 @@ def get_user(req: func.HttpRequest, inputDocument: func.DocumentList) -> func.Ht
 
     if inputDocument and len(inputDocument) > 0:
         document = inputDocument[0]
+        logging.info(f"User loged, pseudo={pseudo}, email={email}")
         return func.HttpResponse(
             body=json.dumps(document.to_dict()),
             mimetype="application/json",
@@ -140,6 +142,8 @@ def post_vote(req: func.HttpRequest, userDocs: func.DocumentList, outputDocument
         }
 
         outputDocument.set(func.Document.from_dict(document))
+
+        logging.info(f"New vote by pseudo={pseudo}, vote={vote}")
 
         return func.HttpResponse(
             json.dumps({"status": "Vote created", "document": document}),
